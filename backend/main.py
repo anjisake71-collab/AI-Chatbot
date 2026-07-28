@@ -1,46 +1,32 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from dotenv import load_dotenv
-from groq import Groq
-import os
 
-load_dotenv()
+from backend.services.groq_service import get_ai_response
+
 
 app = FastAPI()
-
-groq_client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
-)
 
 
 class ChatRequest(BaseModel):
     message: str
-    history: list = [] 
+    history: list = []
 
 
 @app.get("/")
 def home():
-    return {"message": "AI Chatbot Backend is Running!"}
+    return {
+        "message": "AI Chatbot Backend is Running!"
+    }
 
 
 @app.post("/chat")
 def chat(request: ChatRequest):
 
-    response = groq_client.chat.completions.create(
-    model="llama-3.1-8b-instant",
-    messages=[
-        {
-            "role": "system",
-            "content": "You are a helpful AI assistant. Explain concepts clearly and simply. Assume the user is a beginner and provide step-by-step explanations when needed."
-        },
-        *request.history,
-        {
-            "role": "user",
-            "content": request.message
-        }
-    ]
-)
+    ai_response = get_ai_response(
+        message=request.message,
+        history=request.history
+    )
 
     return {
-        "response": response.choices[0].message.content
-    }   
+        "response": ai_response
+    } 
