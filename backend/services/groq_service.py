@@ -1,18 +1,18 @@
-from dotenv import load_dotenv
 from groq import Groq
-import os
 
-load_dotenv()
+from backend.config import GROQ_API_KEY, MODEL_NAME
 
+
+# Create Groq client
 groq_client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
+    api_key=GROQ_API_KEY
 )
 
 
 def get_ai_response(message: str, history: list):
 
     response = groq_client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model=MODEL_NAME,
         messages=[
             {
                 "role": "system",
@@ -26,5 +26,4 @@ def get_ai_response(message: str, history: list):
         ]
     )
 
-    return response.choices[0].message.content
- 
+    return response.choices[0].message.content 
