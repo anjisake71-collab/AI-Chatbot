@@ -18,6 +18,12 @@ def home():
         "message": "AI Chatbot Backend is Running!"
     }
 
+@app.get("/health")
+def health_check():
+    return {
+        "status": "healthy",
+        "service": "AI Chatbot Backend"
+    }
 
 @app.post("/chat")
 def chat(request: ChatRequest):
