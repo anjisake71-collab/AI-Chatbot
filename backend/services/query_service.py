@@ -8,14 +8,18 @@ client = Groq(
 )
 
 
-def generate_rag_response(
+def rewrite_query(
     question: str,
-    context: str,
     history: list = None
 ) -> str:
 
     if history is None:
         history = []
+
+    # If there is no conversation history,
+    # the current question can be used directly.
+    if not history:
+        return question
 
     conversation_history = ""
 
@@ -23,29 +27,36 @@ def generate_rag_response(
         role = message.get("role", "")
         content = message.get("content", "")
 
-        conversation_history += f"{role}: {content}\n"
+        conversation_history += (
+            f"{role}: {content}\n"
+        )
 
     prompt = f"""
-You are a helpful AI assistant.
+You are a query rewriting assistant.
 
-Answer the user's question using the provided context
-and conversation history.
+Rewrite the user's latest question into a clear,
+standalone search query.
 
-Use the conversation history to understand follow-up questions.
+Use the conversation history to understand
+references such as:
+- it
+- they
+- this
+- that
+- these
+- those
 
-If the answer is not available in the context,
-say that you don't have enough information.
+Do not answer the question.
+
+Return only the rewritten search query.
 
 Conversation History:
 {conversation_history}
 
-Context:
-{context}
-
-User Question:
+Latest User Question:
 {question}
 
-Answer:
+Standalone Search Query:
 """
 
     response = client.chat.completions.create(
@@ -56,7 +67,7 @@ Answer:
                 "content": prompt
             }
         ],
-        temperature=0.2
+        temperature=0
     )
 
-    return response.choices[0].message.content 
+    return response.choices[0].message.content.strip() 

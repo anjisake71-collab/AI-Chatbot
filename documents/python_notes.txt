@@ -1,0 +1,29 @@
+Python is a high-level, interpreted programming language known for its simple and readable syntax.
+
+Python is widely used in web development, data analysis, machine learning, artificial intelligence, automation, and scripting.
+
+Python uses indentation to define blocks of code instead of curly braces.
+
+FastAPI is a modern Python web framework used for building APIs. It is fast, easy to use, and supports automatic API documentation.
+
+Streamlit is a Python framework used to build interactive web applications quickly, especially for data science and AI projects.
+
+Machine learning is a branch of artificial intelligence that allows computers to learn patterns from data and make predictions or decisions.
+
+Deep learning is a subset of machine learning that uses neural networks with multiple layers to learn complex patterns.
+
+Generative AI refers to artificial intelligence systems that can generate new content such as text, images, audio, video, and code.
+
+Large Language Models, also called LLMs, are AI models trained on large amounts of text data. They can understand and generate human-like text.
+
+RAG stands for Retrieval-Augmented Generation. RAG allows an AI application to retrieve relevant information from external documents or knowledge bases and use that information to generate better answers.
+
+Agentic AI refers to AI systems that can plan tasks, make decisions, use tools, interact with external systems, and perform multi-step workflows to achieve a goal.
+
+An AI chatbot is a software application that allows users to communicate with an artificial intelligence system using natural language.
+
+Groq provides fast inference for large language models through its API platform.
+
+Vector databases are specialized databases used to store and search numerical vector representations called embeddings.
+
+Embeddings are numerical representations of text, images, or other data that capture semantic meaning and allow similarity searches. 
